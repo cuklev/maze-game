@@ -9,14 +9,22 @@ const directions = {
 const dr = [-1, 0, 0, 1];
 const dc = [0, -1, 1, 0];
 
-const play = (maze) => {
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const play = async maze => {
 	let row = maze.findIndex(r => r[0][directions.left]);
 	let col = 0;
 
 	let came_from = directions.left;
 
+	const { fill, draw } = init_picasso(maze);
+	draw(maze);
+
 	while(col < maze[0].length) {
-		const dir = directions[step(...maze[row][col])];
+		const direction_name = step(...maze[row][col], direction_names[came_from]);
+		const dir = directions[direction_name];
+		await sleep(1000);
+
 		console.log(row, col, dir);
 
 		if(typeof dir === 'undefined') {
@@ -32,9 +40,12 @@ const play = (maze) => {
 		col += dc[dir];
 
 		came_from = dir ^ 3;
+
+		fill(row, col);
 	}
 
 	return true;
 };
 
 play(maze);
+
