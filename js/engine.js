@@ -23,7 +23,7 @@ const play = async maze => {
 	while(col < maze[0].length) {
 		const direction_name = step(...maze[row][col], direction_names[came_from]);
 		const dir = directions[direction_name];
-		await sleep(1000);
+		await sleep(100);
 
 		console.log(row, col, dir);
 

@@ -1,6 +1,19 @@
+// const step = (up, left, right, down, from) => {
+//   if(down) return 'down';
+//   if(right) return 'right';
+//   if(up) return 'up';
+//   if(left && from !== 'left') return 'left';
+// };
+
 const step = (up, left, right, down, from) => {
-  if(up) return 'up';
-  if(left && from !== 'left') return 'left';
-  if(right) return 'right';
-  if(down) return 'down';
+  const from_index = {
+    up: 0,
+    left: 1,
+    right: 2,
+    down: 3
+  }[from];
+
+  const allowed = [right, up, down, left, right, up, down, left];
+  return ['right', 'up', 'down', 'left', 'right', 'up', 'down', 'left']
+      .filter((dir, i) => i >= from_index && allowed[i])[0];
 };
