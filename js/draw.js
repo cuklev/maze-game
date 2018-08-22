@@ -1,16 +1,21 @@
-const CELL_SIZE = 20; // px
 const _px = value => `${value}px`;
+
+const square = size => Object.assign(...['minWidth', 'minHeight', 'maxWidth', 'maxHeight'].map(key => ({ [key]: size })));
 
 const _draw = container => maze => {
 	const borders = ['top', 'left', 'right', 'bottom'];
 	const black_border = '1px solid black';
+	const cell_size = (parseInt(container.clientWidth) / maze[0].length);
+	container.style.minHeight = _px(maze.length * cell_size);
+	const st = square(_px(cell_size));
 
 	for (let i = 0; i < maze.length; ++i) {
 		for (let j = 0; j < maze[i].length; ++j) {
 			const div = document.createElement('div');
+			div.className = 'maze-cell';
 			Object.assign(
 				div.style,
-				{ minWidth: _px(CELL_SIZE), minHeight: _px(CELL_SIZE) },
+				st,
 				...maze[i][j]
 					.map((has_path, ix) => !has_path && {
 						[`border-${borders[ix]}`]: black_border
@@ -34,15 +39,8 @@ const _fill = (container, step = 255 / 10) => columns => (r, c) => {
 };
 
 
-const init_picasso = maze => {
-	const container = document.getElementById('maze-container');
-	const maxHeight = _px(CELL_SIZE * maze.length);
-	const maxWidth = _px(CELL_SIZE * maze[0].length);
-	Object.assign(container.style, { maxHeight, maxWidth });
-
-	return {
-		fill: _fill(container)(maze[0].length),
-		draw: _draw(container)
-	};
-};
+const init_picasso = (container, maze) => ({
+	fill: _fill(container)(maze[0].length),
+	draw: _draw(container)
+});
 

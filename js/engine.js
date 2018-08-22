@@ -11,13 +11,21 @@ const dc = [0, -1, 1, 0];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const play = async maze => {
+const init_mazes = (mazes = 4, root = document.getElementById('app')) => Array.from({ length: mazes }).map(i => {
+	const maze_container = document.createElement('div');
+	maze_container.className = 'maze-container';
+	root.appendChild(maze_container);
+
+	return maze_container;
+});
+
+const play = container => async maze => {
 	let row = maze.findIndex(r => r[0][directions.left]);
 	let col = 0;
 
 	let came_from = directions.left;
 
-	const { fill, draw } = init_picasso(maze);
+	const { fill, draw } = init_picasso(container, maze);
 	draw(maze);
 
 	while(col < maze[0].length) {
@@ -50,4 +58,5 @@ const play = async maze => {
 	return true;
 };
 
-play(maze);
+init_mazes().map((container, i) => play(container)(mazes[i]));
+

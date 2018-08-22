@@ -4,20 +4,27 @@
 	<title>Maze</title>
 	<meta charset="utf-8" />
 	<style>
-		main {
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		#app, .maze-container {
 			display: flex;
 			flex-direction: row;
+			flex: 1;
+			margin: 4px;
+		}
+		.maze-container {
 			flex-wrap: wrap;
 		}
-		main div {
-			margin: 0;
+		.maze-cell {
 			box-sizing: border-box;
 			flex: 1;
 		}
 	</style>
 </head>
 <body>
-	<main id="maze-container"></main>
+	<main id="app"></main>
 	<script src="js/main.js"></script>
 	<script src="js/draw.js"></script>
 	<script src="js/solution.js"></script>
