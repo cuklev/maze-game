@@ -1,4 +1,4 @@
-const CELL_SIZE = 40; // px
+const CELL_SIZE = 20; // px
 const _px = value => `${value}px`;
 
 const _draw = container => maze => {

@@ -1,5 +1,5 @@
-const MAZE_WIDTH = 10;
-const MAZE_HEIGHT = 10;
+const MAZE_WIDTH = 42;
+const MAZE_HEIGHT = 25;
 
 const dr = [-1, 0, 0, 1];
 const dc = [0, -1, 1, 0];
