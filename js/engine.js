@@ -21,11 +21,16 @@ const play = async maze => {
 	draw(maze);
 
 	while(col < maze[0].length) {
+		if(col < 0) {
+			alert('Not the correct exit');
+			return false;
+		}
+
+		fill(row, col);
+
 		const direction_name = step(...maze[row][col], direction_names[came_from]);
 		const dir = directions[direction_name];
-		await sleep(100);
-
-		console.log(row, col, dir);
+		await sleep(50);
 
 		if(typeof dir === 'undefined') {
 			alert('Invalid return');
@@ -40,12 +45,9 @@ const play = async maze => {
 		col += dc[dir];
 
 		came_from = dir ^ 3;
-
-		fill(row, col);
 	}
 
 	return true;
 };
 
 play(maze);
-

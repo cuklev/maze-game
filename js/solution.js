@@ -6,14 +6,9 @@
 // };
 
 const step = (up, left, right, down, from) => {
-  const from_index = {
-    up: 0,
-    left: 1,
-    right: 2,
-    down: 3
-  }[from];
+  const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
 
-  const allowed = [right, up, down, left, right, up, down, left];
-  return ['right', 'up', 'down', 'left', 'right', 'up', 'down', 'left']
+  const allowed = [up, right, down, left, up, right, down, left];
+  return ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left']
       .find((dir, i) => i >= from_index && allowed[i]);
 };
