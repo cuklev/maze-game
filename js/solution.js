@@ -15,5 +15,5 @@ const step = (up, left, right, down, from) => {
 
   const allowed = [right, up, down, left, right, up, down, left];
   return ['right', 'up', 'down', 'left', 'right', 'up', 'down', 'left']
-      .filter((dir, i) => i >= from_index && allowed[i])[0];
+      .find((dir, i) => i >= from_index && allowed[i]);
 };
