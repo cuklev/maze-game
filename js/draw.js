@@ -21,20 +21,19 @@ const _draw = container => maze => {
 				document.createElement(`div`),
 				{ className }
 			);
+			div.style.backgroundColor = `rgba(255, 127, 0, 0)`;
 			row.appendChild(div);
 		}
 		container.appendChild(row);
 	}
 };
 
-const _fill = (container, step = 255 / 10) => columns => (r, c) => {
+const _fill = container => columns => (r, c) => {
 	const element = container.children[r].children[c];
-	const color = element.style.backgroundColor || `rgb(0, 255, 0)`;
-
-	const rgb = Array.of;
-	const [_, green] = eval(color).map(v => Math.min(v - step, 255) | 0);
-
-	element.style.backgroundColor = `rgb(${[0, green, 0].join(`, `)})`;
+	const rgba = Array.of;
+	const xs = eval(element.style.backgroundColor);
+	xs.push(Math.min(0.9, xs.pop() - -0.3));
+	element.style.backgroundColor = `rgba(${xs.join(', ')})`;
 };
 
 const init_picasso = (container, maze) => ({
