@@ -25,7 +25,6 @@ const _draw = container => maze => {
 			container.appendChild(div);
 		}
 	}
-	
 };
 
 const _fill = (container, step = 255 / 10) => columns => (r, c) => {
@@ -43,4 +42,3 @@ const init_picasso = (container, maze) => ({
 	fill: _fill(container)(maze[0].length),
 	draw: _draw(container)
 });
-

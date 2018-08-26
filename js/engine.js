@@ -39,6 +39,10 @@ const play = container => async maze => {
 		const direction_name = step(...maze[row][col], direction_names[came_from]);
 		const dir = directions[direction_name];
 		await sleep(50);
+		if(dir === came_from) {
+			fill(row, col);
+			await sleep(50);
+		}
 
 		if(typeof dir === 'undefined') {
 			alert('Invalid return');
@@ -59,4 +63,3 @@ const play = container => async maze => {
 };
 
 init_mazes().map((container, i) => play(container)(mazes[i]));
-
