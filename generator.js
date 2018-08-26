@@ -1,7 +1,7 @@
 const dr = [-1, 0, 0, 1];
 const dc = [0, -1, 1, 0];
 
-const generate = (width, height) => {
+const generate = (width, height, cycles) => {
 	const entry_row = Math.random() * height | 0;
 	const exit_row = Math.random() * height | 0;
 
@@ -32,6 +32,20 @@ const generate = (width, height) => {
 
 	dfs(0, 0);
 
+	for(let i = 0; i < cycles; i += 1) {
+		const r = Math.random() * height | 0;
+		const c = Math.random() * width | 0;
+		const dir = Math.random() * 4 | 0;
+
+		const nr = r + dr[dir];
+		const nc = c + dc[dir];
+
+		if(isValidCell(nr, nc)) {
+			mazeOutput[r][c][dir] = true;
+			mazeOutput[nr][nc][dir ^ 3] = true;
+		}
+	}
+
 	return mazeOutput;
 };
 
@@ -40,7 +54,7 @@ const showArray = (x) => {
 	return '[' + x.map(y => showArray(y)).join(',') + ']';
 };
 
-const mazes = [0, 1, 2, 3].map(_ => generate(42, 25));
+const mazes = [0, 0, 25, 250].map(c => generate(42, 25, c));
 const output = `
 // the maze is 2d array of cell descriptions
 // each cell is an array of 4 bools: [up, left, right, down]
