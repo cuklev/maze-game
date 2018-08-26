@@ -7,11 +7,10 @@ const handle_message = step => ({ data }) => {
 	}
 
 	try {
-		postMessage({ direction: step(...data) });
+		self.postMessage({ direction: step(...data) });
 	} catch({ message, stack, name }) {
-		postMessage({ error: { message, stack, name } });
+		self.postMessage({ error: { message, stack, name } });
 	}
 }
 
-onmessage = handle_message()
-
+self.onmessage = handle_message()
