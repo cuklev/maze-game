@@ -1,16 +1,17 @@
-onmessage = ({ data }) => {
+const handle_message = step => ({ data }) => {
 	const { name, code } = data;
 
-	if (name !== 'init') return;
+	if (name === 'init') {
+		step = eval(code);
+		return;
+	}
 
-	const step = eval(code);
-
-	onmessage = ({ data }) => {
-		try {
-			postMessage({ direction: step(...data) });
-		} catch(error) {
-			postMessage({ error });
-		}
-	};
+	try {
+		postMessage({ direction: step(...data) });
+	} catch({ message, stack, name }) {
+		postMessage({ error: { message, stack, name } });
+	}
 }
+
+onmessage = handle_message()
 

@@ -20,7 +20,7 @@ const init_mazes = (mazes = 4, root = document.getElementById('app')) => Array.f
 	return maze_container;
 });
 
-const play = container => async maze => {
+const play = container => async (maze, ix) => {
 	let row = maze.findIndex(r => r[0][directions.left]);
 	let col = 0;
 
@@ -29,7 +29,7 @@ const play = container => async maze => {
 	const { fill, draw } = init_picasso(container, maze);
 	draw(maze);
 
-	const step = init_step(String(getStep));
+	const step = init_step(String(ix === 2 ? bad_solutions.throw : solution));
 
 	while(col < maze[0].length) {
 		if(col < 0) {
@@ -39,7 +39,17 @@ const play = container => async maze => {
 
 		fill(row, col);
 
-		const direction_name = await step(...maze[row][col], direction_names[came_from]);
+		const {
+			direction: direction_name,
+			error
+		} = await step(...maze[row][col], direction_names[came_from]);
+
+		if (error) {
+			console.log(error);
+			alert(error.stack);
+			return false;
+		}
+
 		const dir = directions[direction_name];
 		await sleep(play_step_timeout);
 		if(dir === came_from) {
@@ -47,7 +57,7 @@ const play = container => async maze => {
 			await sleep(play_step_timeout);
 		}
 
-		if(typeof dir === 'undefined') {
+		if(!direction_names.includes(direction_name)) {
 			alert('Invalid return');
 			return false;
 		}
@@ -65,4 +75,4 @@ const play = container => async maze => {
 	return true;
 };
 
-init_mazes().map((container, i) => play(container)(mazes[i]));
+init_mazes().map((container, i) => play(container)(mazes[i], i));

@@ -1,4 +1,4 @@
-const _once = (fn, name, emitter) => {
+const _once = name => fn => emitter => {
 	const one_time_action = (...args) => {
 		fn(...args);
 		emitter.removeEventListener(name, one_time_action);
@@ -12,20 +12,27 @@ const init_step = code => {
 	worker.postMessage({ name: 'init', code });
 
 	return (...data) => new Promise((resolve, reject) => {
-		_once(
-			({ data: { direction, error } }) => error ? reject(error) : resolve(direction ),
-			'message',
-			worker
-		);
-
+		_once(`message`)(({ data }) => resolve(data))(worker);
 		worker.postMessage(data);
 	});
 };
 
-const getStep = (up, left, right, down, from) => {
+const solution = (up, left, right, down, from) => {
   const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
 
   const allowed = [up, right, down, left, up, right, down, left];
   return ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left']
       .find((dir, i) => i >= from_index && allowed[i]);
 };
+
+const bad_solutions = {
+	freeze: () => { for(;;); },
+	throw: () => null(),
+	bad_direction_name: () => 'kek',
+	iife_bad: `(() => {
+		const xs = ['right', 'right', 'up', 'kek'];
+		let i = 0;
+		return () => xs[i++ % xs.length];
+	})()`
+};
+
