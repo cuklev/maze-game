@@ -1,3 +1,4 @@
+const play_step_timeout = 50;
 const direction_names = ['up', 'left', 'right', 'down'];
 const directions = {
 	up: 0,
@@ -38,10 +39,10 @@ const play = container => async maze => {
 
 		const direction_name = step(...maze[row][col], direction_names[came_from]);
 		const dir = directions[direction_name];
-		await sleep(50);
+		await sleep(play_step_timeout);
 		if(dir === came_from) {
 			fill(row, col);
-			await sleep(50);
+			await sleep(play_step_timeout);
 		}
 
 		if(typeof dir === 'undefined') {
