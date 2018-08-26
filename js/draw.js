@@ -2,26 +2,24 @@ const _unit = unit => value => `${value}${unit}`;
 const [_px, _pct] = [`px`, `%`].map(_unit);
 
 const _draw = container => maze => {
-	const borders = [`top`, `left`, `right`, `bottom`];
-	const black_border = `1px solid black`;
+	const borders = [`top`, `left`, `right`, `bottom`]
 	const cell_size = (parseInt(container.clientWidth) / maze[0].length);
 	container.style.minHeight = _px(maze.length * cell_size);
 	const st = { minWidth: _pct(100 / maze[0].length), maxWidth: _pct(100 / maze[0].length) };
+	const cell_pct_size = _pct(100 / maze[0].length);
+	document.styleSheets[0].insertRule(`.maze-cell { max-width: ${cell_pct_size}; min-width: ${cell_pct_size} }`);
 
 	for (let i = 0; i < maze.length; ++i) {
-		const row = document.createElement(`div`);
-		row.className = `maze-row`;
+		const row = Object.assign(document.createElement(`div`), { className: `maze-row` });
 		for (let j = 0; j < maze[i].length; ++j) {
-			const div = document.createElement(`div`);
-			div.className = `maze-cell`;
-			Object.assign(
-				div.style,
-				st,
-				...maze[i][j]
-					.map((has_path, ix) => !has_path && {
-						[`border-${borders[ix]}`]: black_border
-					})
-					.filter(Boolean)
+			const className = maze[i][j]
+				.map((has_path, ix) => !has_path && `wall-${borders[ix]}`)
+				.filter(Boolean)
+				.concat([`maze-cell`])
+				.join(' ');
+			const div = Object.assign(
+				document.createElement(`div`),
+				{ className }
 			);
 			row.appendChild(div);
 		}
