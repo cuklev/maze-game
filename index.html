@@ -8,18 +8,25 @@
 			margin: 0;
 			padding: 0;
 		}
-		#app, .maze-container {
+		#app {
 			display: flex;
 			flex-direction: row;
-			flex: 1;
-			margin: 4px;
+		}
+		.maze-row {
+			display: flex;
+			flex-direction: row;
+			box-sizing: border-box;
+			width: 100%;
 		}
 		.maze-container {
+			display: flex;
+			margin: 4px;
+			flex: 1;
 			flex-wrap: wrap;
 		}
 		.maze-cell {
 			box-sizing: border-box;
-			flex: 1;
+			display: flex;
 		}
 	</style>
 </head>
