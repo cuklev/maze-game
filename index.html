@@ -13,7 +13,29 @@
 		}
 		#app {
 			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+		.maze {
+			display: flex;
 			flex-direction: row;
+			flex: 0.5;
+			min-height: 15vw;
+			max-height: 15vw;
+		}
+		.maze-row {
+			display: flex;
+			flex-direction: row;
+			box-sizing: border-box;
+			width: 100%;
+		}
+		.maze-container {
+			display: flex;
+			margin: 4px;
+			flex: 1;
+			flex-wrap: wrap;
+		}
+		.maze-cell {
 		}
 		.maze-row {
 			display: flex;
@@ -39,11 +61,24 @@
 	</style>
 </head>
 <body>
-	<main id="app"></main>
+	<main id="app">
+		<div id="maze" class="maze"></div>
+		<div id="editor">
+			<textarea rows="20" cols="100"></textarea>
+			<button id="btn-start">Play</button>
+		</div>
+	</main>
 	<script src="js/mazes.js"></script>
 	<script src="js/draw.js"></script>
 	<script src="js/worker.js"></script>
 	<script src="js/solution.js"></script>
 	<script src="js/engine.js"></script>
+	<script>
+		const editor = document.getElementById('editor');
+		const get_solution = () => editor.querySelector('textarea').value;
+		const start = () => init_mazes().map((c, i) => play(c)(mazes[i], get_solution()));
+
+		editor.querySelector('button').addEventListener('click', start);
+	</script>
 </body>
 </html>

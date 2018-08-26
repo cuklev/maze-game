@@ -12,7 +12,7 @@ const dc = [0, -1, 1, 0];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const init_mazes = (mazes = 4, root = document.getElementById('app')) => Array.from({ length: mazes }).map(i => {
+const init_mazes = (mazes = 4, root = document.getElementById('maze')) => Array.from({ length: mazes }).map(i => {
 	const maze_container = document.createElement('div');
 	maze_container.className = 'maze-container';
 	root.appendChild(maze_container);
@@ -20,7 +20,7 @@ const init_mazes = (mazes = 4, root = document.getElementById('app')) => Array.f
 	return maze_container;
 });
 
-const play = container => async (maze, ix) => {
+const play = container => async (maze, solution) => {
 	let row = maze.findIndex(r => r[0][directions.left]);
 	let col = 0;
 
@@ -29,7 +29,7 @@ const play = container => async (maze, ix) => {
 	const { fill, draw } = init_picasso(container, maze);
 	draw(maze);
 
-	const step = init_step(String(ix === 2 ? bad_solutions.throw : solution));
+	const step = init_step(String(solution));
 
 	while(col < maze[0].length) {
 		if(col < 0) {
@@ -75,4 +75,4 @@ const play = container => async (maze, ix) => {
 	return true;
 };
 
-init_mazes().map((container, i) => play(container)(mazes[i], i));
+//init_mazes().map((container, i) => play(container)(mazes[i], solution));
