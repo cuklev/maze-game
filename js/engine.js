@@ -29,6 +29,8 @@ const play = container => async maze => {
 	const { fill, draw } = init_picasso(container, maze);
 	draw(maze);
 
+	const step = init_step(String(getStep));
+
 	while(col < maze[0].length) {
 		if(col < 0) {
 			alert('Not the correct exit');
@@ -37,7 +39,7 @@ const play = container => async maze => {
 
 		fill(row, col);
 
-		const direction_name = step(...maze[row][col], direction_names[came_from]);
+		const direction_name = await step(...maze[row][col], direction_names[came_from]);
 		const dir = directions[direction_name];
 		await sleep(play_step_timeout);
 		if(dir === came_from) {
