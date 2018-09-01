@@ -1,0 +1,23 @@
+{
+  "name": "maze-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd ./node_modules/ace-code-editor && npm i && node Makefile.dryice.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cuklev/maze-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cuklev/maze-game/issues"
+  },
+  "homepage": "https://github.com/cuklev/maze-game#README",
+  "dependencies": {
+    "ace-builds": "^1.4.1"
+  }
+}
