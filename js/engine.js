@@ -74,5 +74,3 @@ const play = container => async (maze, solution) => {
 
 	return true;
 };
-
-//init_mazes().map((container, i) => play(container)(mazes[i], solution));
