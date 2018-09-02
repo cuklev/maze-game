@@ -7,12 +7,12 @@
 </head>
 <body>
 	<main id="app">
-		<div id="editor" style="font-size: 16px">const step = (up, left, right, down, from) => {
+		<div id="editor" style="font-size: 16px">const step = (up, left, right, down, from) =&gt; {
   const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
 
   const allowed = [up, right, down, left, up, right, down, left];
   return ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left']
-      .find((dir, i) => i >= from_index && allowed[i]);
+      .find((dir, i) =&gt; i &gt;= from_index &amp;&amp; allowed[i]);
 };</div>
 		<div id="maze" class="maze"></div>
 		<button id="start-btn">Play</button>
