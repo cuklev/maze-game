@@ -11,9 +11,14 @@
 		html, body {
 			height: 100%;
 		}
-		#app {
+		body {
 			display: flex;
 			flex-direction: column;
+			background-color: #272822;
+		}
+		#app {
+			display: flex;
+			flex-direction: row;
 			height: 100%;
 		}
 		#editor {
@@ -33,6 +38,7 @@
 			flex: 0.5;
 			min-height: 15vw;
 			max-height: 15vw;
+			flex: 1;
 		}
 		.maze-row {
 			display: flex;
@@ -63,15 +69,14 @@
 			display: flex;
 			background-color: rgb(255, 30, 0);
 		}
-		.wall-top { border-top: 1px solid black }
-		.wall-bottom { border-bottom: 1px solid black }
-		.wall-left { border-left: 1px solid black }
-		.wall-right { border-right: 1px solid black }
+		.wall-top { border-top: 1px solid lightgray }
+		.wall-bottom { border-bottom: 1px solid lightgray }
+		.wall-left { border-left: 1px solid lightgray }
+		.wall-right { border-right: 1px solid lightgray }
 	</style>
 </head>
 <body>
 	<main id="app">
-		<div id="maze" class="maze"></div>
 		<div id="editor" style="font-size: 16px">const step = (up, left, right, down, from) => {
   const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
 
@@ -79,6 +84,7 @@
   return ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left']
       .find((dir, i) => i >= from_index && allowed[i]);
 };</div>
+		<div id="maze" class="maze"></div>
 		<button id="start-btn">Play</button>
 	</main>
 	<script src="./node_modules/ace-builds/src-min-noconflict/ace.js" type="text/javascript"></script>
