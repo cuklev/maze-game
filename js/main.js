@@ -1,4 +1,12 @@
 (() => {
+	const init_mazes = (mazes = 4, root = document.getElementById('maze')) => Array.from({ length: mazes }).map(i => {
+		const maze_container = document.createElement('div');
+		maze_container.className = 'maze-container';
+		root.appendChild(maze_container);
+
+		return maze_container;
+	});
+
 	const editor = ace.edit('editor');
 	editor.setTheme('ace/theme/monokai');
 	editor.session.setMode("ace/mode/javascript");

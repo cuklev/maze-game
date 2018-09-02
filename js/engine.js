@@ -12,14 +12,6 @@ const dc = [0, -1, 1, 0];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const init_mazes = (mazes = 4, root = document.getElementById('maze')) => Array.from({ length: mazes }).map(i => {
-	const maze_container = document.createElement('div');
-	maze_container.className = 'maze-container';
-	root.appendChild(maze_container);
-
-	return maze_container;
-});
-
 const play = container => async (maze, solution) => {
 	let row = maze.findIndex(r => r[0][directions.left]);
 	let col = 0;
