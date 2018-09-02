@@ -4,8 +4,7 @@
   "description": "",
   "main": "generator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd ./node_modules/ace-code-editor && npm i && node Makefile.dryice.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
