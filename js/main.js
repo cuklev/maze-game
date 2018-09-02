@@ -12,4 +12,4 @@
 	const start = () => init_mazes().map((c, i) => play(c)(mazes[i], get_solution()));
 
 	document.getElementById('start-btn').addEventListener('click', start);
-}();
+})();
