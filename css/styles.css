@@ -48,6 +48,7 @@ body {
 	width: 100%;
 }
 .maze-container {
+	position: relative;
 	display: flex;
 	flex-wrap: wrap;
 	min-width: 50%;
@@ -72,3 +73,30 @@ body {
 .wall-bottom { border-bottom: 1px solid lightgray }
 .wall-left { border-left: 1px solid lightgray }
 .wall-right { border-right: 1px solid lightgray }
+
+.success {
+	position: absolute;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	background-color: rgba(39, 40, 30, 0.9);
+	width: 100%;
+	height: 100%;
+	color: white;
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.success img {
+	flex: 1;
+	max-height: 40%;
+	max-width: 25%;
+	margin: auto;
+}
+
+.success p {
+	max-height: 35%;
+	flex: 1;
+	vertical-align: center;
+}

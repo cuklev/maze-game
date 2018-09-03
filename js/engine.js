@@ -12,6 +12,7 @@ const play = (() => {
 	const dc = [0, -1, 1, 0];
 
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+	let steps = 0;
 
 	return container => async (maze, solution) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
@@ -19,7 +20,7 @@ const play = (() => {
 
 		let came_from = directions.left;
 
-		const { fill, draw } = init_picasso(container, maze);
+		const { fill, draw, success } = init_picasso(container, maze);
 		draw(maze);
 
 		const step = init_step(String(solution));
@@ -63,7 +64,10 @@ const play = (() => {
 			col += dc[dir];
 
 			came_from = dir ^ 3;
+			++steps;
 		}
+
+		success(steps);
 
 		return true;
 	};

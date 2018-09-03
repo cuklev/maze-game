@@ -36,8 +36,24 @@ const init_picasso = (() => {
 		element.style.backgroundColor = `rgba(${xs.join(', ')})`;
 	};
 
+	const _success = container => steps => {
+		const success = Object.assign(
+			document.createElement('div'),
+			{
+				className: `success`,
+				innerHTML: `
+					<img src="../assets/810022_success_512x512.png" />
+					<p>you escaped in ${steps} steps</p>
+				`
+			}
+		);
+
+		container.appendChild(success);
+	};
+
 	return (container, maze) => ({
 		fill: _fill(container)(maze[0].length),
-		draw: _draw(container)
+		draw: _draw(container),
+		success: _success(container)
 	});
 })();
