@@ -28,7 +28,6 @@ const play = (() => {
 		while(col < maze[0].length) {
 			if(col < 0) {
 				return fail({ message: 'Not the correct exit' });
-				return false;
 			}
 
 			fill(row, col);
