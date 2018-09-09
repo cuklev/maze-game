@@ -28,12 +28,12 @@ const init_picasso = (() => {
 		}
 	};
 
-	const _fill = container => columns => (r, c) => {
+	const _fill = container => columns => (r, c, color) => {
 		const element = container.children[r].children[c];
 		const rgba = Array.of;
 		const xs = eval(element.style.backgroundColor);
 		xs.push(Math.min(1, xs.pop() - -0.2));
-		element.style.backgroundColor = `rgba(${xs.join(', ')})`;
+		element.style.backgroundColor = color || `rgba(${xs.join(', ')})`;
 	};
 
 	const _success = container => steps => {
@@ -70,6 +70,7 @@ const init_picasso = (() => {
 		fill: _fill(container)(maze[0].length),
 		draw: _draw(container),
 		success: _success(container),
-		fail: _fail(container)
+		fail: _fail(container),
+		success_color: `rgb(50, 186, 124)`
 	});
 })();
