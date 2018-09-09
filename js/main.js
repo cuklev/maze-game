@@ -27,7 +27,16 @@
 		return picasso;
 	}))(document.getElementById('maze'));
 
-	const start = () => picassos.map((picasso, i) => play(picasso, mazes[i], get_solution()));
+	const start = () => picassos.map(async (picasso, i) => {
+		const { clear, draw, fill, success, fail } = picasso;
+		clear(); draw();
+		const result = await play(fill, mazes[i], get_solution());
+		if(result.error) {
+			fail({message: result.error});
+		} else {
+			success(result.steps);
+		}
+	});
 
 	document.getElementById('start-btn').addEventListener('click', start);
 })();

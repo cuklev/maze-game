@@ -68,7 +68,6 @@ const init_picasso = (() => {
 
 	const _clear = (container, maze) => () => {
 		container.innerHTML = '';
-		_draw(container, maze)();
 	};
 
 	return (container, maze) => ({

@@ -32,10 +32,7 @@ const play = (() => {
 		});
 	};
 
-	return async (picasso, maze, solution) => {
-		const {fill, draw, success, fail, clear} = picasso;
-		clear();
-
+	return async (fill, maze, solution) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
 		let steps = 0;
@@ -46,7 +43,7 @@ const play = (() => {
 
 		while(col < maze[0].length) {
 			if(col < 0) {
-				return fail({ message: 'Not the correct exit' });
+				return {error: 'Not the correct exit' };
 			}
 
 			fill(row, col);
@@ -57,7 +54,7 @@ const play = (() => {
 			} = await step(...maze[row][col], direction_names[came_from]);
 
 			if (error) {
-				return fail(error);
+				return {error};
 			}
 
 			const dir = directions[direction_name];
@@ -68,10 +65,10 @@ const play = (() => {
 			}
 
 			if(!direction_names.includes(direction_name)) {
-				return fail({ message: `you returned '${direction_name}' :(` });
+				return {error: `you returned '${direction_name}' :(`};
 			}
 			if(!maze[row][col][dir]) {
-				return fail({ message: `you tried to walk through the wall :)` });
+				return {error: `you tried to walk through the wall :)`};
 			}
 
 			row += dr[dir];
@@ -81,7 +78,6 @@ const play = (() => {
 			++steps;
 		}
 
-		success(steps);
-		return true;
+		return {steps};
 	};
 })();
