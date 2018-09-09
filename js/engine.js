@@ -38,9 +38,7 @@ const play = (() => {
 			} = await step(...maze[row][col], direction_names[came_from]);
 
 			if (error) {
-				console.log(error);
-				alert(error.stack);
-				return false;
+				return fail(error);
 			}
 
 			const dir = directions[direction_name];
