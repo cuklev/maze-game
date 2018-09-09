@@ -1,10 +1,12 @@
 (() => {
-	const init_mazes = (mazes = 4, root = document.getElementById('maze')) => Array.from({ length: mazes }).map(i => {
+	const init_mazes = (root = document.getElementById('maze')) => mazes.map(maze => {
 		const maze_container = document.createElement('div');
 		maze_container.className = 'maze-container';
 		root.appendChild(maze_container);
 
-		return maze_container;
+		const picasso = init_picasso(maze_container, maze);
+		picasso.draw(maze);
+		return picasso;
 	});
 
 	const editor = ace.edit('editor');
@@ -17,7 +19,8 @@
 		})();
 	`;
 
-	const start = () => init_mazes().map((c, i) => play(c)(mazes[i], get_solution()));
+	const picassos = init_mazes();
+	const start = () => picassos.map((picasso, i) => play(picasso, mazes[i], get_solution()));
 
 	document.getElementById('start-btn').addEventListener('click', start);
 })();

@@ -13,15 +13,12 @@ const play = (() => {
 
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-	return container => async (maze, solution) => {
+	return async ({fill, draw, success, fail}, maze, solution) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
 		let steps = 0;
 
 		let came_from = directions.left;
-
-		const { fill, draw, success, fail } = init_picasso(container, maze);
-		draw(maze);
 
 		const step = init_step(String(solution));
 
