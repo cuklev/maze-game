@@ -42,7 +42,7 @@ const init_picasso = (() => {
 			{
 				className: `notification`,
 				innerHTML: `
-					<img src="../assets/810022_success_512x512.png" />
+					<img src="assets/success.png" />
 					<p>you escaped in ${steps} steps</p>
 				`
 			}
@@ -57,7 +57,7 @@ const init_picasso = (() => {
 			{
 				className: `notification`,
 				innerHTML: `
-					<img src="../assets/fail.png" />
+					<img src="assets/fail.png" />
 					<p>${error.message}</p>
 				`
 			}
