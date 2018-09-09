@@ -13,6 +13,25 @@ const play = (() => {
 
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+	const _once = name => fn => emitter => {
+		const one_time_action = (...args) => {
+			fn(...args);
+			emitter.removeEventListener(name, one_time_action);
+		};
+
+		emitter.addEventListener(name, one_time_action);
+	};
+
+	const init_step = code => {
+		const worker = new Worker('js/worker.js');
+		worker.postMessage({ name: 'init', code });
+
+		return (...data) => new Promise((resolve, reject) => {
+			_once(`message`)(({ data }) => resolve(data))(worker);
+			worker.postMessage(data);
+		});
+	};
+
 	return async ({fill, draw, success, fail}, maze, solution) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
