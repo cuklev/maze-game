@@ -12,11 +12,11 @@ const play = (() => {
 	const dc = [0, -1, 1, 0];
 
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-	let steps = 0;
 
 	return container => async (maze, solution) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
+		let steps = 0;
 
 		let came_from = directions.left;
 
