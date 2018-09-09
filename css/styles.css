@@ -68,7 +68,6 @@ body {
 .maze-cell {
 	box-sizing: border-box;
 	display: flex;
-	background-color: rgb(255, 30, 0);
 }
 .wall-top { border-top: 1px solid lightgray }
 .wall-bottom { border-bottom: 1px solid lightgray }
@@ -80,7 +79,7 @@ body {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	background-color: rgba(39, 40, 30, 0.9);
+	background-color: rgba(39, 40, 30, .75);
 	width: 100%;
 	height: 100%;
 	color: white;

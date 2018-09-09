@@ -21,7 +21,7 @@ const init_picasso = (() => {
 					document.createElement(`div`),
 					{ className }
 				);
-				div.style.backgroundColor = `rgba(255, 127, 0, 0)`;
+				div.style.backgroundColor = `rgba(102, 217, 239, 0)`;
 				row.appendChild(div);
 			}
 			container.appendChild(row);
@@ -32,7 +32,7 @@ const init_picasso = (() => {
 		const element = container.children[r].children[c];
 		const rgba = Array.of;
 		const xs = eval(element.style.backgroundColor);
-		xs.push(Math.min(0.9, xs.pop() - -0.3));
+		xs.push(Math.min(1, xs.pop() - -0.2));
 		element.style.backgroundColor = `rgba(${xs.join(', ')})`;
 	};
 
