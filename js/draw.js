@@ -40,7 +40,7 @@ const init_picasso = (() => {
 		const success = Object.assign(
 			document.createElement('div'),
 			{
-				className: `success`,
+				className: `notification`,
 				innerHTML: `
 					<img src="../assets/810022_success_512x512.png" />
 					<p>you escaped in ${steps} steps</p>
@@ -51,9 +51,25 @@ const init_picasso = (() => {
 		container.appendChild(success);
 	};
 
+	const _fail = container => error => {
+		const fail = Object.assign(
+			document.createElement('div'),
+			{
+				className: `notification`,
+				innerHTML: `
+					<img src="../assets/fail.png" />
+					<p>${error.message}</p>
+				`
+			}
+		);
+
+		container.appendChild(fail);
+	};
+
 	return (container, maze) => ({
 		fill: _fill(container)(maze[0].length),
 		draw: _draw(container),
-		success: _success(container)
+		success: _success(container),
+		fail: _fail(container)
 	});
 })();

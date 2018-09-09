@@ -9,6 +9,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: #272822;
+	overflow: hidden;
 }
 #app {
 	display: flex;
@@ -74,7 +75,7 @@ body {
 .wall-left { border-left: 1px solid lightgray }
 .wall-right { border-right: 1px solid lightgray }
 
-.success {
+.notification {
 	position: absolute;
 	display: flex;
 	flex: 1;
@@ -88,14 +89,14 @@ body {
 	font-weight: bold;
 }
 
-.success img {
+.notification img {
 	flex: 1;
 	max-height: 40%;
 	max-width: 25%;
 	margin: auto;
 }
 
-.success p {
+.notification p {
 	max-height: 35%;
 	flex: 1;
 	vertical-align: center;

@@ -20,14 +20,14 @@ const play = (() => {
 
 		let came_from = directions.left;
 
-		const { fill, draw, success } = init_picasso(container, maze);
+		const { fill, draw, success, fail } = init_picasso(container, maze);
 		draw(maze);
 
 		const step = init_step(String(solution));
 
 		while(col < maze[0].length) {
 			if(col < 0) {
-				alert('Not the correct exit');
+				return fail({ message: 'Not the correct exit' });
 				return false;
 			}
 
@@ -52,12 +52,10 @@ const play = (() => {
 			}
 
 			if(!direction_names.includes(direction_name)) {
-				alert('Invalid return');
-				return false;
+				return fail({ message: `you returned '${direction_name}' :(` });
 			}
 			if(!maze[row][col][dir]) {
-				alert('The wall');
-				return false;
+				return fail({ message: `you tried to walk through the wall :)` });
 			}
 
 			row += dr[dir];
