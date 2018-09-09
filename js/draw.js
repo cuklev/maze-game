@@ -2,7 +2,7 @@ const init_picasso = (() => {
 	const _unit = unit => value => `${value}${unit}`;
 	const [_px, _pct] = [`px`, `%`].map(_unit);
 
-	const _draw = container => maze => {
+	const _draw = (container, maze) => () => {
 		const borders = [`top`, `left`, `right`, `bottom`]
 		const cell_size = parseInt(container.clientWidth) / maze[0].length;
 		const st = { minWidth: _pct(100 / maze[0].length), maxWidth: _pct(100 / maze[0].length) };
@@ -66,11 +66,17 @@ const init_picasso = (() => {
 		container.appendChild(fail);
 	};
 
+	const _clear = (container, maze) => () => {
+		container.innerHTML = '';
+		_draw(container, maze)();
+	};
+
 	return (container, maze) => ({
 		fill: _fill(container)(maze[0].length),
-		draw: _draw(container),
+		draw: _draw(container, maze),
 		success: _success(container),
 		fail: _fail(container),
+		clear: _clear(container, maze),
 		success_color: `rgb(50, 186, 124)`
 	});
 })();
