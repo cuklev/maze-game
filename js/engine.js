@@ -34,6 +34,8 @@ const play = (() => {
 
 	return async (picasso, maze, solution) => {
 		const {fill, draw, success, fail, clear} = picasso;
+		clear();
+
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
 		let steps = 0;
