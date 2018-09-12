@@ -27,16 +27,57 @@
 		return picasso;
 	}))(document.getElementById('maze'));
 
-	const start = () => picassos.map(async (picasso, i) => {
+	const _once = (name, fn, emitter) => {
+		const one_time_action = (...args) => {
+			fn(...args);
+			emitter.removeEventListener(name, one_time_action);
+		};
+
+		emitter.addEventListener(name, one_time_action);
+	};
+
+	const init_step_runner = async code => {
+		const worker = new Worker('js/worker.js');
+		worker.postMessage({ name: 'init', code });
+
+		const step = (...data) => new Promise((resolve, reject) => {
+			_once(`message`, message => resolve(message.data), worker);
+			worker.postMessage(data);
+		});
+
+		let terminate;
+		const termination = new Promise(resolve => terminate = () => resolve(true));
+		const is_terminated = () => Promise.race([termination, false]);
+
+		return { step, terminate, is_terminated };
+	};
+
+	const start = (runners = []) => () => picassos.map(async (picasso, i) => {
 		const { clear, draw, fill, success, fail } = picasso;
 		clear(); draw();
-		const result = await play(fill, mazes[i], get_solution());
-		if(result.error) {
-			fail({message: result.error});
-		} else {
-			success(result.steps);
+
+		const runner = await init_step_runner(get_solution());
+		if (runners[i]) {
+			runners[i].terminate();
 		}
+
+		runners[i] = runner;
+		const { error, steps, terminated } = await play(
+			fill,
+			mazes[i],
+			runner
+		);
+
+		if (terminated) {
+			return;
+		}
+
+		if (error) {
+			fail({message: error});
+		}
+
+		success(steps)
 	});
 
-	document.getElementById('start-btn').addEventListener('click', start);
+	document.getElementById('start-btn').addEventListener('click', start());
 })();

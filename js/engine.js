@@ -13,37 +13,20 @@ const play = (() => {
 
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-	const _once = name => fn => emitter => {
-		const one_time_action = (...args) => {
-			fn(...args);
-			emitter.removeEventListener(name, one_time_action);
-		};
-
-		emitter.addEventListener(name, one_time_action);
-	};
-
-	const init_step = code => {
-		const worker = new Worker('js/worker.js');
-		worker.postMessage({ name: 'init', code });
-
-		return (...data) => new Promise((resolve, reject) => {
-			_once(`message`)(({ data }) => resolve(data))(worker);
-			worker.postMessage(data);
-		});
-	};
-
-	return async (fill, maze, solution) => {
+	return async (fill, maze, runner) => {
 		let row = maze.findIndex(r => r[0][directions.left]);
 		let col = 0;
 		let steps = 0;
 
 		let came_from = directions.left;
 
-		const step = init_step(String(solution));
-
 		while(col < maze[0].length) {
+			if (await runner.is_terminated()) {
+				return {terminated: true};
+			}
+
 			if(col < 0) {
-				return {error: 'Not the correct exit' };
+				return {error: 'Not the correct exit'};
 			}
 
 			fill(row, col);
@@ -51,7 +34,7 @@ const play = (() => {
 			const {
 				direction: direction_name,
 				error
-			} = await step(...maze[row][col], direction_names[came_from]);
+			} = await runner.step(...maze[row][col], direction_names[came_from]);
 
 			if (error) {
 				return {error};
