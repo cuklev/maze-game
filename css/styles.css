@@ -69,6 +69,11 @@ body {
 	box-sizing: border-box;
 	display: flex;
 }
+.marker {
+	flex: 1;
+	background: orange !important;
+	opacity: 0.9;
+}
 .wall-top { border-top: 1px solid lightgray }
 .wall-bottom { border-bottom: 1px solid lightgray }
 .wall-left { border-left: 1px solid lightgray }

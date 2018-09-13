@@ -28,12 +28,20 @@ const init_picasso = (() => {
 		}
 	};
 
-	const _fill = container => columns => (r, c, color) => {
+	const _make_marker = () => Object.assign(
+		document.createElement(`span`),
+		{className: `marker`}
+	);
+	const _fill = (container, marker = _make_marker()) => columns => (r, c) => {
 		const element = container.children[r].children[c];
+
 		const rgba = Array.of;
+		const rgb = (...rgb) => rgba(...rgb, 1);
 		const xs = eval(element.style.backgroundColor);
 		xs.push(Math.min(1, xs.pop() - -0.2));
-		element.style.backgroundColor = color || `rgba(${xs.join(', ')})`;
+		element.style.backgroundColor = `rgba(${xs.join(', ')})`;
+
+		element.appendChild(marker);
 	};
 
 	const _success = container => steps => {

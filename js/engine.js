@@ -1,5 +1,5 @@
 const play = (() => {
-	const play_step_timeout = 50;
+	const play_step_timeout = 25;
 	const direction_names = ['up', 'left', 'right', 'down'];
 	const directions = {
 		up: 0,
