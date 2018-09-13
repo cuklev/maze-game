@@ -1,16 +1,18 @@
-const handle_message = step => ({ data }) => {
-	const { name, code } = data;
-
-	if (name === 'init') {
-		step = eval(code);
-		return;
-	}
-
-	try {
-		self.postMessage({ direction: step(...data) });
-	} catch({ message, stack, name }) {
-		self.postMessage({ error: { message, stack, name } });
-	}
+const init_worker = () => {
+	const handle_message = step => ({ data }) => {
+		const { name, code } = data;
+	
+		if (name === 'init') {
+			step = eval(code);
+			return;
+		}
+	
+		try {
+			self.postMessage({ direction: step(...data) });
+		} catch({ message, stack, name }) {
+			self.postMessage({ error: { message, stack, name } });
+		}
+	};
+	
+	self.onmessage = handle_message();
 }
-
-self.onmessage = handle_message()

@@ -1,6 +1,6 @@
 (() => {
-	const editor = ace.edit('editor');
-	editor.setTheme('ace/theme/monokai');
+	const editor = ace.edit(`editor`);
+	editor.setTheme(`ace/theme/monokai`);
 	editor.session.setMode("ace/mode/javascript");
 	editor.setValue(`const step = (up, left, right, down, from) => {
   const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
@@ -18,14 +18,14 @@
 	`;
 
 	const picassos = ((root) => mazes.map(maze => {
-		const maze_container = document.createElement('div');
-		maze_container.className = 'maze-container';
+		const maze_container = document.createElement(`div`);
+		maze_container.className = `maze-container`;
 		root.appendChild(maze_container);
 
 		const picasso = init_picasso(maze_container, maze);
 		picasso.draw();
 		return picasso;
-	}))(document.getElementById('maze'));
+	}))(document.getElementById(`maze`));
 
 	const _once = (name, fn, emitter) => {
 		const one_time_action = (...args) => {
@@ -36,9 +36,17 @@
 		emitter.addEventListener(name, one_time_action);
 	};
 
+	// chrome won`t load the worker script via file:// protocol -_-
+	const _haxx_for_chrome = URL.createObjectURL(
+		new Blob(
+			[`(${String(init_worker)})()`],
+			{type: `text/javascript`}
+		)
+	);
+
 	const init_step_runner = async code => {
-		const worker = new Worker('js/worker.js');
-		worker.postMessage({ name: 'init', code });
+		const worker = new Worker(_haxx_for_chrome);
+		worker.postMessage({name: `init`, code});
 
 		const step = (...data) => new Promise((resolve, reject) => {
 			_once(`message`, message => resolve(message.data), worker);
@@ -53,7 +61,7 @@
 	};
 
 	const start = (runners = []) => () => picassos.map(async (picasso, i) => {
-		const { clear, draw, fill, success, fail } = picasso;
+		const {clear, draw, fill, success, fail} = picasso;
 		clear(); draw();
 
 		const runner = await init_step_runner(get_solution());
@@ -62,7 +70,7 @@
 		}
 
 		runners[i] = runner;
-		const { error, steps, terminated } = await play(
+		const {error, steps, terminated} = await play(
 			fill,
 			mazes[i],
 			runner
@@ -79,5 +87,5 @@
 		success(steps)
 	});
 
-	document.getElementById('start-btn').addEventListener('click', start());
+	document.getElementById(`start-btn`).addEventListener(`click`, start());
 })();
