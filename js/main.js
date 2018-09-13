@@ -81,10 +81,10 @@
 		}
 
 		if (error) {
-			fail({message: error});
+			return fail({message: error});
 		}
 
-		success(steps)
+		return success(steps)
 	});
 
 	document.getElementById(`start-btn`).addEventListener(`click`, start());
