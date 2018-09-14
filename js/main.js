@@ -2,12 +2,21 @@
 	const editor = ace.edit(`editor`);
 	editor.setTheme(`ace/theme/monokai`);
 	editor.session.setMode("ace/mode/javascript");
-	editor.setValue(`const step = (up, left, right, down, from) => {
-  const from_index = ['left', 'up', 'right', 'down'].indexOf(from);
+	editor.setValue(`/*
 
-  const allowed = [up, right, down, left, up, right, down, left];
-  return ['up', 'right', 'down', 'left', 'up', 'right', 'down', 'left']
-      .find((dir, i) => i >= from_index && allowed[i]);
+You need to escape the maze by writing a function step().
+
+step() will be called for each cell you visit.
+It accepts 5 arguments:
+- up, left, right, down => booleans, true for directions you can take
+- from => one of 'up', 'left', 'right', 'down' - where you came from
+
+You should return a string - the direction you want to take
+  => one of 'up', 'left', 'right', 'down'.
+
+*/
+
+const step = (up, left, right, down, from) => {
 };`);
 
 	const get_solution = () => `
