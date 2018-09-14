@@ -4,12 +4,12 @@
 	editor.session.setMode("ace/mode/javascript");
 	editor.setValue(`/*
 
-You need to escape the maze by writing a function step().
+You need to escape the maze by completing the function step().
 
 step() will be called for each cell you visit.
 It accepts 5 arguments:
-- up, left, right, down => booleans, true for directions you can take
-- from => one of 'up', 'left', 'right', 'down' - where you came from
+- up, left, right, down => booleans - true for the directions you can take.
+- from => string, one of 'up', 'left', 'right', 'down' - the direction from which you came from.
 
 You should return a string - the direction you want to take
   => one of 'up', 'left', 'right', 'down'.
