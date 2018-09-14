@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly DIR="$(dirname $(readlink -f $0))"
+readonly DIR="$(dirname "$(readlink -f "$0")")"
 cd "$DIR"
 
 npm i
