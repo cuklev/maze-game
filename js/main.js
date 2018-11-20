@@ -16,8 +16,16 @@ You should return a string - the direction you want to take
 
 */
 
+/*
 const step = (up, left, right, down, from) => {
-};`);
+};
+*/
+
+const step = (up, left, right, down, from) =>
+    ['left', 'up', 'right', 'down']
+        .filter(x => eval(x))
+        .find((_, i, xs) => xs[(i+11)%xs.length] === from);
+`);
 
 	const get_solution = () => `
 		(() => {
